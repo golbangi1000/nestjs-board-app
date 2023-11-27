@@ -32,6 +32,17 @@ export class BoardsService {
         return this.boards.find( (board) => board.id === id)
     }
 
+    deleteBoard( id : string) : void {//삭제하는거기 때문에 리턴값을 안줌
+        this.boards = this.boards.filter( (board) => board.id !== id);
+    }
+
+    updateBoardStatus( id : string, status : BoardStatus) : Board{
+        const board = this.getBoardById(id)
+        board.status = status;
+
+        return board
+    }
+
 
     
 

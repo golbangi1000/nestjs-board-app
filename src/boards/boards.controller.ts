@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import { Board } from './board.model';
+import { Board, BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
 @Controller('boards')
 export class BoardsController {
@@ -15,10 +15,8 @@ export class BoardsController {
     }
 
 
-    @Post()
-    createBoard(
-        @Body() createBoardDto : CreateBoardDto, //여기안에 title description 다 들어있으거니깐 
-        ) : Board {//리턴값이 Board배열이 아니니깐 Board타입
+    @Post()         //body 안에여기안에 title description 다 들어있으거니깐 
+    createBoard(@Body() createBoardDto : CreateBoardDto) : Board {//리턴값이 Board배열이 아니니깐 Board타입
 
                 // private boardService로 선언했으니깐 쓰면됨 
         return this.boardsService.createBoard(createBoardDto);
@@ -31,5 +29,22 @@ export class BoardsController {
     getBoardById(@Param('id') id: string) : Board{
         return this.boardsService.getBoardById(id)
     }
+
+
+    @Delete('/:id')
+    deleteBoardById(@Param('id') id: string) : void{
+        this.boardsService.deleteBoard(id);
+    }
+
+    @Patch('/:id/status')         //id랑 status 받아와서 수정
+    updateBoardStatus(@Param() id: string,@Body('status') status : BoardStatus) : Board{
+
+        return this.boardsService.updateBoardStatus(id,status);
+    }
+
+
+
+
+
 }
 
