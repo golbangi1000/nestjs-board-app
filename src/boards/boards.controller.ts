@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -15,7 +15,8 @@ export class BoardsController {
     }
 
 
-    @Post()         //body 안에여기안에 title description 다 들어있으거니깐 
+    @Post()  //body 안에여기안에 title description 다 들어있으거니깐 
+    @UsePipes(ValidationPipe)
     createBoard(@Body() createBoardDto : CreateBoardDto) : Board {//리턴값이 Board배열이 아니니깐 Board타입
 
                 // private boardService로 선언했으니깐 쓰면됨 
@@ -31,12 +32,12 @@ export class BoardsController {
     }
 
 
-    @Delete('/:id')
+    @Delete('/:id') // rest api delete nodejs
     deleteBoardById(@Param('id') id: string) : void{
         this.boardsService.deleteBoard(id);
     }
 
-    @Patch('/:id/status')         //id랑 status 받아와서 수정
+    @Patch('/:id/status')         //id랑 status 받아와서 수정 
     updateBoardStatus(@Param() id: string,@Body('status') status : BoardStatus) : Board{
 
         return this.boardsService.updateBoardStatus(id,status);
