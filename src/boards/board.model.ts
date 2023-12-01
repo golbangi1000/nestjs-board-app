@@ -1,13 +1,13 @@
-export interface Board{
-    id : string;
-    title : string;
-    description : string;
-    status: BoardStatus;
+export interface Board {
+  id: string;
+  title: string;
+  description: string;
+  status: BoardStatus;
 }
 
-export enum BoardStatus{
-    PUBLIC = 'PUBLIC',
-    PRIVATE = 'PRIVATE'
+export enum BoardStatus {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
 }
 
 //인터페이스나 클래스로 모델을 만들수 있다. 1:02:42
