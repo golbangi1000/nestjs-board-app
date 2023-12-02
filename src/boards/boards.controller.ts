@@ -47,7 +47,7 @@ export class BoardsController {
 
   @Patch('/:id/status') //id랑 status 받아와서 수정
   updateBoardStatus(
-    @Param() id: string,
+    @Param('id') id: string,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ): Board {
     return this.boardsService.updateBoardStatus(id, status);
